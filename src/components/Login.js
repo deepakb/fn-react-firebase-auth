@@ -7,8 +7,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
+import Snackbar from '@material-ui/core/Snackbar';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import MuiAlert from '@material-ui/lab/Alert';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -39,11 +41,24 @@ export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = React.useState(false);
   const history = useHistory();
   const classes = useStyles();
   const { loginError } = errorConfig;
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const Alert = (props) => {
+    return <MuiAlert elevation={6} variant='filled' {...props} />;
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -63,12 +78,13 @@ export default function Login() {
     }
 
     try {
-      setError('');
+      setError(null);
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       history.push('/');
     } catch {
-      setError('Failed to log in');
+      setError({ status: 'Failed to log in. Please try again!' });
+      setOpen(true);
     }
 
     setLoading(false);
@@ -119,6 +135,7 @@ export default function Login() {
             variant='contained'
             color='primary'
             className={classes.submit}
+            disabled={loading}
           >
             Sign In
           </Button>
@@ -139,6 +156,17 @@ export default function Login() {
       <Box mt={8}>
         <Copyright />
       </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        key='topright'
+      >
+        <Alert onClose={handleClose} severity='error'>
+          {error ? error.status : ''}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
