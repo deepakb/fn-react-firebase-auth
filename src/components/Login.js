@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
+import { errorConfig } from '../configs/error';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,9 +43,24 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const classes = useStyles();
+  const { loginError } = errorConfig;
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    let error = {};
+
+    if (!emailRef.current.value || emailRef.current.value === '') {
+      error.email = loginError.email;
+    }
+
+    if (!passwordRef.current.value || passwordRef.current.value === '') {
+      error.password = loginError.password;
+    }
+
+    if (Object.keys(error).length > 0) {
+      return setError(error);
+    }
 
     try {
       setError('');
@@ -68,7 +84,7 @@ export default function Login() {
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <TextField
             variant='outlined'
             margin='normal'
@@ -79,6 +95,9 @@ export default function Login() {
             name='email'
             autoComplete='email'
             autoFocus
+            inputRef={emailRef}
+            error={error && error.email ? true : false}
+            helperText={error ? error.email : ''}
           />
           <TextField
             variant='outlined'
@@ -90,6 +109,9 @@ export default function Login() {
             type='password'
             id='password'
             autoComplete='current-password'
+            inputRef={passwordRef}
+            error={error && error.password ? true : false}
+            helperText={error ? error.password : ''}
           />
           <Button
             type='submit'

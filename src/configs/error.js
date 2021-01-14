@@ -7,5 +7,10 @@ export const errorConfig = {
     confirmPassword: 'Confirm password is required',
     invalidEmail: 'Email address is not valid',
     passwordNotMatch: 'Password do not match'
+  },
+  loginError: {
+    email: 'Email address is required',
+    password: 'Password is required',
+    invalidEmail: 'Email address is not valid'
   }
 };

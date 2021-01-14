@@ -186,6 +186,7 @@ export default function Signup() {
             variant='contained'
             color='primary'
             className={classes.submit}
+            disabled={loading}
           >
             Sign Up
           </Button>
