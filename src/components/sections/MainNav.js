@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -10,7 +11,12 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 export default function MainNav() {
+  const history = useHistory();
   const { logout } = useAuth();
+
+  const navigate = path => {
+    history.push(path);
+  };
 
   return (
     <div>
@@ -18,25 +24,25 @@ export default function MainNav() {
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        <ListItemText primary="Dashboard" onClick={() => navigate('/')} />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
           <GroupAddIcon />
         </ListItemIcon>
-        <ListItemText primary="Employees" />
+        <ListItemText primary="Employees" onClick={() => navigate('/employees')} />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Customers" />
+        <ListItemText primary="Customers" onClick={() => navigate('/customers')} />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
-        <ListItemText primary="Reports" />
+        <ListItemText primary="Reports" onClick={() => navigate('/reports')} />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
