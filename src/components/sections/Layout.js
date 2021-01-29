@@ -3,7 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Navigation from './Navigation';
-import Container from './Container';
+import Body from './Body';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +19,7 @@ export default function Layout({ children }) {
       <CssBaseline />
       <Header />
       <Navigation />
-      <Container body={children} />
+      <Body content={children} />
     </div>
   );
 }

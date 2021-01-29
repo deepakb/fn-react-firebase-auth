@@ -7,6 +7,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import MainNav from './MainNav';
 import { mainListItems, secondaryListItems } from '../sections/listItems';
 
 const drawerWidth = 240;
@@ -59,7 +60,9 @@ export default function Navigation() {
         </IconButton>
       </div>
       <Divider />
-      <List>{mainListItems}</List>
+      <List>
+        <MainNav />
+      </List>
       <Divider />
       <List>{secondaryListItems}</List>
     </Drawer>

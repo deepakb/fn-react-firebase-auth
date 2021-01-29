@@ -14,16 +14,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Dashboard() {
+export default function Employees() {
   const classes = useStyles();
 
   return (
     <Layout>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Orders />
-          </Paper>
         </Grid>
       </Grid>
     </Layout>

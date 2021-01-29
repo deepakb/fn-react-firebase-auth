@@ -16,14 +16,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Container({ body }) {
+export default function Body({ content }) {
   const classes = useStyles();
 
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
-        {body}
+        {content}
         <Footer />
       </Container>
     </main>
